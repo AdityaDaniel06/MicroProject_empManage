@@ -1,6 +1,6 @@
 td,
 th {
-  border: 1px solid #ddd;
+  border: 1px solid #f2f2f2;
   padding: 8px;
 }
 tr:nth-child(even) {
@@ -15,4 +15,9 @@ th {
   text-align: left;
   background-color: #0d6efd;
   color: white;
+}
+
+table {
+  border: 1px solid #ebe8e8;
+  box-shadow: 1px 1px 8px #d7cfcf;
 }

@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const empSchema = new mongoose.Schema({
   empId: {
     type: String,
-    required: true,
+    required: [true, "Employee ID should be provided"],
     unique: true,
   },
   empName: {
     type: String,
-    required: true,
+    required: [true, "Employee Name should be provided"],
   },
   empContact: {
     type: String,

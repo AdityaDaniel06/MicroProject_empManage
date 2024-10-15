@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 import axios from "axios";
+import { message } from "antd";
 import { useState } from "react";
 
 const Insert = () => {
@@ -18,10 +19,20 @@ const Insert = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let api = "http://127.0.0.1:7000/emp/api/addEmployee";
-    axios.post(api, input).then((res) => {
-      console.log(res);
-      alert("Data inserted successfully");
-    });
+    axios
+      .post(api, input)
+      .then((res) => {
+        console.log(res);
+        if (res.status == 201) {
+          message.success("Data inserted successfully");
+          // e.target.reset();
+          //setInput({});
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Record already exists");
+      });
   };
   return (
     <>
@@ -33,7 +44,7 @@ const Insert = () => {
             <Form.Control type="email" placeholder="name@example.com" />
           </Form.Group>
         </Form> */}
-        <form className="formDesign" onSubmit={handleSubmit}>
+        <form className="formDesign">
           <Row className="my-3">
             <Col sm={4}>
               <label className="form-label">Enter new ID</label>
@@ -114,7 +125,7 @@ const Insert = () => {
           </Row>
           <Button variant="primary" onClick={handleSubmit}>
             Save Changes
-          </Button>{" "}
+          </Button>
           | &nbsp;
           <Button variant="secondary">Cancel</Button>
         </form>

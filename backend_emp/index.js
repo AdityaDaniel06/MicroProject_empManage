@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require("cors"); // Cross Origin Resource Sharing
 
 app.use(cors());
 const dotenv = require("dotenv");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 dotenv.config({ path: "./config.env" });
 
@@ -23,7 +23,6 @@ app.get("/", (req, res) => {
 });
 
 const empRoutes = require("./routes/employeeRoutes");
-
 app.use("/emp", empRoutes);
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
