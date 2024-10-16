@@ -5,37 +5,73 @@ import Button from "react-bootstrap/Button";
 
 import axios from "axios";
 import { message } from "antd";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Insert = () => {
+const Update = () => {
+  const { empId } = useParams();
+
   const [input, setInput] = useState({});
   const handleInput = (e) => {
     let nm = e.target.name;
     let val = e.target.value;
     setInput((values) => ({ ...values, [nm]: val }));
+    // console.log(input);
   };
+
+  const fetchUserData = async () => {
+    const api = `http://127.0.0.1:7000/emp/api/getEmployee/${empId}`;
+    try {
+      const response = await axios.get(api);
+      const [empData] = response.data;
+      //   console.log("Employee data", empData);
+      setInput(empData); // Update input state with the fetched data
+    } catch (error) {
+      console.error(error);
+      message.error("Error fetching data", error.status);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let api = "http://127.0.0.1:7000/emp/api/addEmployee";
-    axios
-      .post(api, input)
-      .then((res) => {
-        console.log(res);
-        if (res.status == 201) {
-          message.success("Data inserted successfully");
-          setInput(() => ({}));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        message.error("Record already exists");
-      });
+    try {
+      const api = `http://127.0.0.1:7000/emp/api/updateEmployee/${empId}`;
+      //   console.log(empId);
+      // Sending the PUT request to update employee data
+      axios
+        .put(api, input)
+        .then((res) => {
+          message.success("Data successfully updated!");
+
+          // Reset the input fields after successful update
+          setInput({
+            empId: "",
+            empName: "",
+            empEmail: "",
+            empContact: "",
+            empDept: "",
+            empSalary: "",
+          });
+        })
+        .catch((error) => {
+          // Handle any error that occurs during the request
+          console.error(error);
+          message.error("Error updating data. Please try again.");
+        });
+    } catch (e) {
+      console.error(e);
+      message.error("An unexpected error occurred.");
+    }
   };
+
   return (
     <>
       <div className="w-50 mx-auto mt-3">
-        <h2>Insert Data of the new Employee</h2>
+        <h3>Edit Employee Records : {empId}</h3>
         <form className="formDesign">
           <Row className="my-3">
             <Col sm={4}>
@@ -45,7 +81,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="text"
-                name="id"
+                name="empId"
+                value={input.empId || ""} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -58,7 +95,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="text"
-                name="name"
+                name="empName"
+                value={input.empName || ""} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -71,7 +109,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="email"
-                name="email"
+                name="empEmail"
+                value={input.empEmail || ""} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -84,7 +123,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="text"
-                name="mob"
+                name="empContact"
+                value={input.empContact || ""} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -97,7 +137,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="text"
-                name="dept"
+                name="empDept"
+                value={input.empDept || ""} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -110,7 +151,8 @@ const Insert = () => {
               <input
                 className="form-control"
                 type="text"
-                name="sal"
+                name="empSalary"
+                value={input.empSalary} // Set input value with fetched data
                 onChange={handleInput}
               />
             </Col>
@@ -118,7 +160,7 @@ const Insert = () => {
           <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
-          | &nbsp;
+          &nbsp;
           <Button variant="secondary">Cancel</Button>
         </form>
       </div>
@@ -126,4 +168,4 @@ const Insert = () => {
   );
 };
 
-export default Insert;
+export default Update;

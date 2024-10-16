@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Display from "./pages/Display";
 import Insert from "./pages/Insert";
 import Layout from "./pages/Layout";
+import Update from "./pages/Update";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/insert" element={<Insert />}></Route>
             <Route path="/display" element={<Display />}></Route>
+            <Route path="/editUser/:empId" element={<Update />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

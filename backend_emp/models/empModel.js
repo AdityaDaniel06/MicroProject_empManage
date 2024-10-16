@@ -10,6 +10,10 @@ const empSchema = new mongoose.Schema({
     type: String,
     required: [true, "Employee Name should be provided"],
   },
+  empEmail: {
+    type: String,
+    required: [true, "Employee Name should be provided"],
+  },
   empContact: {
     type: String,
     required: true,
