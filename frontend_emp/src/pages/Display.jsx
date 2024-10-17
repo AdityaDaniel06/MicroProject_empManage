@@ -42,7 +42,7 @@ const Display = () => {
     axios
       .delete(`http://127.0.0.1:7000/emp/api/deleteEmployee/${id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         message.info("User data deleted successfully");
         fetchData();
       })
