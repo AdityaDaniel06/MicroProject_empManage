@@ -24,7 +24,7 @@ const Insert = () => {
         console.log(res);
         if (res.status == 201) {
           message.success("Data inserted successfully");
-          setInput(() => ({}));
+          // setInput(() => ({}));
         }
       })
       .catch((err) => {
@@ -118,7 +118,7 @@ const Insert = () => {
           <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
-          | &nbsp;
+          &nbsp;
           <Button variant="secondary">Cancel</Button>
         </form>
       </div>

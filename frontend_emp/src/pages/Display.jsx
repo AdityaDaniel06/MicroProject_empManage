@@ -16,7 +16,6 @@ const Display = () => {
   const handleOpenModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
   // ------------------------------------------------//
 
   //  get all users
@@ -38,21 +37,26 @@ const Display = () => {
 
   // delete single user data
   const handleDelete = (id) => {
-    console.log(id);
-    axios
-      .delete(`http://127.0.0.1:7000/emp/api/deleteEmployee/${id}`)
-      .then((res) => {
-        // console.log(res);
-        message.info("User data deleted successfully");
-        fetchData();
-      })
-      .catch((err) => {
-        console.log(err);
-        message.error("Error fetching data");
-      });
+    // console.log(id);
+    try {
+      axios
+        .delete(`http://127.0.0.1:7000/emp/api/deleteEmployee/${id}`)
+        .then((res) => {
+          // console.log(res);
+          message.info("User data deleted successfully");
+          fetchData();
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error("Unable to delete");
+        });
+    } catch (err) {
+      console.log(err);
+      message.error(err);
+    }
   };
 
-  // edit single user data
+  // edit single user data:
   const handleEdit = (id) => {
     navigate(`/editUser/${id}`);
   };

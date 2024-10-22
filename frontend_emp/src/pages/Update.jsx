@@ -43,7 +43,7 @@ const Update = () => {
       //   console.log(empId);
       // Sending the PUT request to update employee data
       axios
-        .put(api, input)
+        .patch(api, input)
         .then((res) => {
           message.success("Data successfully updated!");
 

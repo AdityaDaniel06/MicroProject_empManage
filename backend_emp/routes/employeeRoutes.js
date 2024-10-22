@@ -15,6 +15,6 @@ route.delete("/api/deleteEmployee/:id", empController.deleteEmployee);
 route.get("/api/getEmployee/:id", empController.getEmployee);
 
 // update employee
-route.put("/api/updateEmployee/:id", empController.updateEmployee);
+route.patch("/api/updateEmployee/:id", empController.updateEmployee);
 
 module.exports = route;

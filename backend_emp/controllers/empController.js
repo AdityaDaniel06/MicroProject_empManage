@@ -61,13 +61,13 @@ const deleteEmployee = async (req, res) => {
 };
 
 const updateEmployee = async (req, res) => {
-  console.log("data received", req.body, req.params);
+  console.log("data received", req.body);
   try {
     const { id } = req.params;
     const { name, email, mob, dept, sal } = req.body;
-    console.log(id);
-    // const empData = await empModel.findOneAndUpdate(
-    const empData = await empModel.updateOne(
+    // console.log(id);
+    const empData = await empModel.findOneAndUpdate(
+      // const empData = await empModel.updateOne(
       { empId: id },
       {
         $set: {
@@ -83,6 +83,7 @@ const updateEmployee = async (req, res) => {
         runValidators: true,
       }
     );
+    console.log("empData", empData);
     if (!empData) {
       return res.status(404).json("Employee not found.");
     }

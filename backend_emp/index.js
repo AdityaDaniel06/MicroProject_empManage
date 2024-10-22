@@ -17,10 +17,10 @@ mongoose.connect(process.env.DATABASE_NAME).then(() => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.get("/", (req, res) => {
-  res.send("This is the landing page, with additional routes");
-  console.log(process.env.NODE_ENV);
-});
+// app.get("/", (req, res) => {
+//   res.send("This is the landing page, with additional routes");
+//   console.log(process.env.NODE_ENV);
+// });
 
 const empRoutes = require("./routes/employeeRoutes");
 app.use("/emp", empRoutes);
